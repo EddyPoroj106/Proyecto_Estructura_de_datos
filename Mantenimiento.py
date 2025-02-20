@@ -37,4 +37,4 @@ class Mantenimiento:
     def __str__(self):
         return f"Fecha: {self.fecha}, 
                 Descripción: {self.descripcion}, 
-                Costo: {self.precio}"
+                Precio: {self.precio}"
