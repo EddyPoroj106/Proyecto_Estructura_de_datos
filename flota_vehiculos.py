@@ -1,7 +1,6 @@
-class NodoVehiculo:
-    def __init__(self, vehiculo):
-        self.vehiculo = vehiculo
-        self.siguiente = None
+
+from vehiculo import Vehiculo
+from NodoVehiculo import NodoVehiculo
 
 class FlotaVehiculos:
     def __init__(self):
@@ -42,7 +41,7 @@ class FlotaVehiculos:
     def listar_vehiculos(self):
         vehiculos = []
         actual = self.cabeza
-        while actual:
-            vehiculos.append(str(actual.vehiculo))
+        while actual is not None:
+            vehiculos.append(actual.vehiculo.__str__()) 
             actual = actual.siguiente
         return vehiculos
