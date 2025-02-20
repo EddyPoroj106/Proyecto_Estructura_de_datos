@@ -10,7 +10,7 @@ class Vehiculo:
         self.modelo = modelo
         self.año = año
         self.kilometraje = kilometraje
-        self.historial_mantenimientos = None
+        self.historial_mantenimientos = None 
 
     @property
     def placa(self):
@@ -64,7 +64,7 @@ class Vehiculo:
         total = 0
         actual = self.historial_mantenimientos
         while actual:
-            total += actual.mantenimiento.precio
+            total = total + actual.mantenimiento.precio
             actual = actual.siguiente
         return total
 

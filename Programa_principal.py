@@ -1,98 +1,101 @@
-import flota_vehiculos
-import vehiculo
-import Mantenimiento
+from flota_vehiculos import Vehiculo, Mantenimiento, FlotaVehiculos
 
 def mostrar_menu():
-    print("\n == Menú ==")
-    print("1. Registrar un vehiculo")
-    print("2. Agregar mantenimiento a un vehiculo")
-    print("3. Consultar historial de mantenimientos de un vehiculo")
-    print("4. Calcular costo total de mantenimientos de un vehiculo")
+    print("\n--- Menú de Gestión de Flota de Vehículos ---")
+    print("1. Registrar un vehículo")
+    print("2. Agregar mantenimiento a un vehículo")
+    print("3. Consultar historial de mantenimientos de un vehículo")
+    print("4. Calcular costo total de mantenimientos de un vehículo")
     print("5. Listar todos los vehículos")
-    print("6. Buscar un vehiculo por placa")
-    print("7. Eliminar un vehiculo por placa")
+    print("6. Buscar un vehículo por placa")
+    print("7. Eliminar un vehículo por placa")
     print("8. Salir")
-    return input("Ingrese una opcion: ")
-
 
 def main():
-    flota = flota_vehiculos.FlotaVehiculos()
+    flota = FlotaVehiculos()
 
     while True:
-        opcion = mostrar_menu()
+        mostrar_menu()
+        opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
-            placa = input("Ingrese la placa del vehiculo: ")
-            marca = input("Ingrese la marca del vehiculo: ")
-            modelo = input("Ingrese el modelo del vehiculo: ")
-            año = int(input("Ingrese el año del vehiculo: "))
-            kilometraje = float(input("Ingrese el kilometraje del vehiculo: "))
-            vehiculo_nuevo = vehiculo.Vehiculo(placa, marca, modelo, año, kilometraje)
-            flota.registrar_vehiculo(vehiculo_nuevo)
-            print("Vehículo registrado exitosamente.")
+            placa = input("Ingrese la placa del vehículo: ")
+            marca = input("Ingrese la marca del vehículo: ")
+            modelo = input("Ingrese el modelo del vehículo: ")
+            año = int(input("Ingrese el año del vehículo: "))
+            kilometraje = float(input("Ingrese el kilometraje del vehículo: "))
+            try:
+                vehiculo = Vehiculo(placa, marca, modelo, año, kilometraje)
+                flota.registrar_vehiculo(vehiculo)
+                print("Vehículo registrado exitosamente.")
+            except ValueError as e:
+                print(f"Error: {e}")
 
         elif opcion == "2":
-            placa = input("Ingrese la placa del vehiculo: ")
-            vehiculo_buscado = flota.buscar_vehiculo(placa)
-            if vehiculo_buscado:
+            placa = input("Ingrese la placa del vehículo: ")
+            vehiculo = flota.buscar_vehiculo(placa)
+            if vehiculo:
                 fecha = input("Ingrese la fecha del mantenimiento: ")
                 descripcion = input("Ingrese la descripción del mantenimiento: ")
                 costo = float(input("Ingrese el costo del mantenimiento: "))
-                mantenimiento_nuevo = Mantenimiento.Mantenimiento(fecha, descripcion, costo)
-                vehiculo_buscado.agregar_mantenimiento(mantenimiento_nuevo)
-                print("Mantenimiento agregado exitosamente")
+                try:
+                    mantenimiento = Mantenimiento(fecha, descripcion, costo)
+                    vehiculo.agregar_mantenimiento(mantenimiento)
+                    print("Mantenimiento agregado exitosamente.")
+                except ValueError as e:
+                    print(f"Error: {e}")
             else:
-                print("Vehiculo no encontrado")
+                print("Vehículo no encontrado.")
 
         elif opcion == "3":
-            placa = input("Ingrese la placa del vehiculo: ")
-            vehiculo_buscado = flota.buscar_vehiculo(placa)
-            if vehiculo_buscado:
+            placa = input("Ingrese la placa del vehículo: ")
+            vehiculo = flota.buscar_vehiculo(placa)
+            if vehiculo:
                 print("Historial de mantenimientos:")
-                for mantenimiento_str in vehiculo_buscado.consultar_historial():
-                    print(mantenimiento_str)
+                for mantenimiento in vehiculo.consultar_historial():
+                    print(mantenimiento)
             else:
-                print("Vehiculo no encontrado")
+                print("Vehículo no encontrado.")
 
         elif opcion == "4":
-            placa = input("Ingrese la placa del vehiculo: ")
-            vehiculo_buscado = flota.buscar_vehiculo(placa)
-            if vehiculo_buscado:
-                costo_total = vehiculo_buscado.calcular_costo_total()
+            placa = input("Ingrese la placa del vehículo: ")
+            vehiculo = flota.buscar_vehiculo(placa)
+            if vehiculo:
+                costo_total = vehiculo.calcular_costo_total()
                 print(f"Costo total de mantenimientos: {costo_total}")
             else:
-                print("Vehiculo no encontrado")
+                print("Vehículo no encontrado.")
 
         elif opcion == "5":
-            vehiculos_lista = flota.listar_vehiculos()
-            if vehiculos_lista:
-                print("Vehiculos en la flota:")
-                for vehiculo_str in vehiculos_lista:
-                    print(vehiculo_str)
+            vehiculos = flota.listar_vehiculos()
+            if vehiculos:
+                print("Vehículos en la flota:")
+                for vehiculo in vehiculos:
+                    print(vehiculo)
             else:
-                print("No hay vehiculos registrados")
+                print("No hay vehículos registrados.")
 
         elif opcion == "6":
-            placa = input("Ingrese la placa del vehiculo: ")
-            vehiculo_buscado = flota.buscar_vehiculo(placa)
-            if vehiculo_buscado:
-                print(f"Vehiculo encontrado: {vehiculo_buscado}")
+            placa = input("Ingrese la placa del vehículo: ")
+            vehiculo = flota.buscar_vehiculo(placa)
+            if vehiculo:
+                print(f"Vehículo encontrado: {vehiculo}")
             else:
-                print("Vehiculo no encontrado")
+                print("Vehículo no encontrado.")
 
         elif opcion == "7":
-            placa = input("Ingrese la placa del vehiculo: ")
+            placa = input("Ingrese la placa del vehículo: ")
             if flota.eliminar_vehiculo(placa):
-                print("Vehiculo eliminado")
+                print("Vehículo eliminado correctamente.")
             else:
-                print("Vehiculo no encontrado")
+                print("Vehículo no encontrado.")
 
         elif opcion == "8":
-            print("Ha salido del programa")
+            print("Ha salido del programa.")
             break
 
         else:
-            print("Opcion no valida")
+            print("Opción no válida.")
 
 if __name__ == "__main__":
     main()
