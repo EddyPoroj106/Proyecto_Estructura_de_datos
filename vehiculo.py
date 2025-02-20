@@ -1,7 +1,5 @@
-class NodoMantenimiento:
-    def __init__(self, mantenimiento):
-        self.mantenimiento = mantenimiento
-        self.siguiente = None
+from Mantenimiento import Mantenimiento
+from NodoMantenimiento import NodoMantenimiento
 
 class Vehiculo:
     def __init__(self, placa, marca, modelo, año, kilometraje):
@@ -10,7 +8,7 @@ class Vehiculo:
         self.modelo = modelo
         self.año = año
         self.kilometraje = kilometraje
-        self.historial_mantenimientos = None 
+        self.historial_mantenimientos = None
 
     @property
     def placa(self):
@@ -69,8 +67,4 @@ class Vehiculo:
         return total
 
     def __str__(self):
-        return f"Placa: {self.placa}, 
-                Marca: {self.marca}, 
-                Modelo: {self.modelo}, 
-                Año: {self.año}, 
-                Kilometraje: {self.kilometraje}"
+        return f"Placa: {self.placa}, Marca: {self.marca}, Modelo: {self.modelo}, Año: {self.año}, Kilometraje: {self.kilometraje}"

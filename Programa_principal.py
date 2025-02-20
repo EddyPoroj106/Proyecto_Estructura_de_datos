@@ -1,7 +1,9 @@
-from flota_vehiculos import Vehiculo, Mantenimiento, FlotaVehiculos
+from vehiculo import Vehiculo
+from Mantenimiento import Mantenimiento
+from flota_vehiculos import FlotaVehiculos
 
 def mostrar_menu():
-    print("\n--- Menú de Gestión de Flota de Vehículos ---")
+    print("-----> Menú de Gestión de Flota de Vehículos <-----")
     print("1. Registrar un vehículo")
     print("2. Agregar mantenimiento a un vehículo")
     print("3. Consultar historial de mantenimientos de un vehículo")
@@ -39,8 +41,8 @@ def main():
                 descripcion = input("Ingrese la descripción del mantenimiento: ")
                 costo = float(input("Ingrese el costo del mantenimiento: "))
                 try:
-                    mantenimiento = Mantenimiento(fecha, descripcion, costo)
-                    vehiculo.agregar_mantenimiento(mantenimiento)
+                    nuevo_mantenimiento = Mantenimiento(fecha, descripcion, costo)
+                    vehiculo.agregar_mantenimiento(nuevo_mantenimiento)
                     print("Mantenimiento agregado exitosamente.")
                 except ValueError as e:
                     print(f"Error: {e}")

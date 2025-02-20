@@ -26,15 +26,14 @@ class Mantenimiento:
 
     @property
     def precio(self):
-        return self.precio
+        return self._precio
 
     @precio.setter
     def precio(self, value):
         if value < 0: 
             raise ValueError("El precio no puede ser negativo.")
-        self.precio = value
+        self._precio = value 
 
     def __str__(self):
-        return f"Fecha: {self.fecha}, 
-                Descripción: {self.descripcion}, 
-                Precio: {self.precio}"
+        return f"Fecha: {self.fecha}, Descripción: {self.descripcion}, Precio: {self.precio}"
+
